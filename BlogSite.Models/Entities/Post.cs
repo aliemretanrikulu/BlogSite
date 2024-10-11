@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using Core.Entitites;
+using System.Reflection.Metadata;
 
 namespace BlogSite.Models.Entities;
 
