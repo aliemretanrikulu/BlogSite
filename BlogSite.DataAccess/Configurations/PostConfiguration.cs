@@ -37,5 +37,9 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasForeignKey(x=> x.PostId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder.Navigation(x => x.Author).AutoInclude();  // ilgili yazarı getirir inlude eder
+        builder.Navigation(x => x.Category).AutoInclude();
+        builder.Navigation(x => x.Comments).AutoInclude();
+
     }
 }

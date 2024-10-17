@@ -25,5 +25,13 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasForeignKey(c => c.CateogryId)
             .OnDelete(DeleteBehavior.NoAction); // many tarafı
 
+        builder.HasData(new Category
+        {
+            Id = 1,
+            Name = "Yazılım",
+            CreatedDate = DateTime.Now,
+        }
+        );
+
     }
 }

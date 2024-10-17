@@ -22,13 +22,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .HasMany(x => x.Posts)
             .WithOne(x=> x.Author)
-            .HasForeignKey(x => x.Author.Id)
+            .HasForeignKey(x => x.AuthorId)
             .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .HasMany(x=> x.Comments)
             .WithOne(x=> x.User)
-            .HasForeignKey (x => x.User.Id)
+            .HasForeignKey (x => x.UserId)
             .OnDelete(DeleteBehavior.NoAction);
 
 
