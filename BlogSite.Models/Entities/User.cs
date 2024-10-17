@@ -17,4 +17,6 @@ public class User : Entity<long>
     public string Email { get; set; }
 
     public List<Post> Posts { get; set; }
+
+    public List<Comment> Comments { get; set; }
 }
