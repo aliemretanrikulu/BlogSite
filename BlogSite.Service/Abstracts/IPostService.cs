@@ -11,7 +11,7 @@ public interface IPostService
 {
     ReturnModel<List<PostResponseDto>> GetAll();
 
-    ReturnModel<PostResponseDto>> GetById(Guid id);
+    ReturnModel<PostResponseDto> GetById(Guid id);
 
     ReturnModel<Post> Add(CreatePostRequest create);
 

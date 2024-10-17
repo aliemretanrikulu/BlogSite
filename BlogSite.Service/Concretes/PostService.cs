@@ -39,12 +39,31 @@ public class PostService : IPostService
 
     public ReturnModel<List<PostResponseDto>> GetAll()
     {
-        throw new NotImplementedException();
+        List<Post> posts = _postRepository.GetAll();
+        List<PostResponseDto> responses = _mapper.Map<List<PostResponseDto>>(posts);
+
+        return new ReturnModel<List<PostResponseDto>>
+        {
+            Data = responses,
+            Message = string.Empty,
+            StatusCode = 200,
+            Success = true
+        };
+
     }
 
     public ReturnModel<PostResponseDto?> GetById(Guid id)
     {
-        throw new NotImplementedException();
+        var post = _postRepository.GetById(id);
+        var response = _mapper.Map<PostResponseDto?>(post);
+
+        return new ReturnModel<PostResponseDto?>
+        {
+            Data = response,
+            Message = string.Empty,
+            StatusCode = 200,
+            Success = true
+        };
     }
 
     ReturnModel<Post> IPostService.Add(CreatePostRequest create)
