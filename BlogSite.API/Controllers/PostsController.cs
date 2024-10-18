@@ -9,7 +9,7 @@ namespace BlogSite.API.Controllers
     [ApiController]
     public class PostsController(IPostService _postService) : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getall")]
        public IActionResult GetAll()
         {
            var result = _postService.GetAll();

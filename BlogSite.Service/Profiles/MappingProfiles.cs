@@ -10,7 +10,7 @@ public class MappingProfiles : Profile
 
     public MappingProfiles()
     {
-        CreateMap<CreatePostRequest, Post>();
+        CreateMap<CreatePostRequest, Post>(); // ikisini eşleştir demek ve dönüşüm işlemleri yapar 
 
         CreateMap<Post, PostResponseDto>();
     }
