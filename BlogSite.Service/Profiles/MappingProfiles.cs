@@ -10,8 +10,11 @@ public class MappingProfiles : Profile
 
     public MappingProfiles()
     {
-        CreateMap<CreatePostRequest, Post>(); // ikisini eşleştir demek ve dönüşüm işlemleri yapar 
-
-        CreateMap<Post, PostResponseDto>();
+        CreateMap<CreatePostRequest, Post>();
+        CreateMap<UpdatePostRequest, Post>();
+        CreateMap<Post, PostResponseDto>()
+            .ForMember(x => x.Category, opt => opt.MapFrom(x => x.Category.Name))
+            .ForMember(x => x.UserName, opt => opt.MapFrom(X => X.Author.Username));
     }
 }
+

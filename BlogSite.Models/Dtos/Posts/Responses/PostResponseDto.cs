@@ -6,6 +6,6 @@ public sealed record PostResponseDto
     public string Title { get; set; }
     public string Content { get; set; }
     public DateTime CreateDate { get; set; }
-    public string AuthorUserName { get; set; }
-    public string CategoryName { get; set; }
+    public string UserName { get; set; }
+    public string Category { get; set; }
 }

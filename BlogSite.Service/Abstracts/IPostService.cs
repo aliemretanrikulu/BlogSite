@@ -15,4 +15,9 @@ public interface IPostService
 
     ReturnModel<Post> Add(CreatePostRequest create);
 
+    ReturnModel<PostResponseDto> Update(UpdatePostRequest update);
+
+    ReturnModel<PostResponseDto> Remove(Guid id);
+
+    
 }
