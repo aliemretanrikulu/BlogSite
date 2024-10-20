@@ -10,9 +10,4 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Categories\Requests\" />
-    <Folder Include="Dtos\Categories\Responses\" />
-  </ItemGroup>
-
 </Project>
