@@ -11,11 +11,11 @@ public interface ICategoryService
 {
     ReturnModel<List<CategoryResponseDto>> GetAll();
 
-    ReturnModel<CategoryResponseDto> GetById(Guid id);
+    ReturnModel<CategoryResponseDto> GetById(int id);
 
     ReturnModel<CategoryResponseDto> Add(CreateCategoryRequest create);
 
     ReturnModel<CategoryResponseDto> Update(UpdateCategoryRequest update);
 
-    ReturnModel<CategoryResponseDto> Remove(Guid id);
+    ReturnModel<CategoryResponseDto> Remove(int id);
 }

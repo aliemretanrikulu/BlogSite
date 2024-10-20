@@ -26,14 +26,14 @@ public class CategoriesController(ICategoryService _categoryService) : Controlle
     }
 
     [HttpGet("getbyid/{id}")]
-    public IActionResult GetById([FromRoute] Guid id)
+    public IActionResult GetById([FromRoute] int id)
     {
         var result = _categoryService.GetById(id);
         return Ok(result);
     }
 
     [HttpDelete("delete")]
-    public IActionResult Delete([FromQuery] Guid id)
+    public IActionResult Delete([FromQuery] int id)
     {
         var result = _categoryService.Remove(id);
         return Ok(result);

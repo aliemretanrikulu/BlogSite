@@ -17,7 +17,7 @@ namespace BlogSite.Service.Concretes;
 
 public class CategoryService : ICategoryService
 {
-    public readonly ICategoryService _categoryRepository;
+    public readonly ICategoryRepository _categoryRepository;
     public readonly IMapper _mapper;
 
     public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
@@ -60,7 +60,7 @@ public class CategoryService : ICategoryService
         };
     }
 
-    public ReturnModel<CategoryResponseDto> GetById(Guid id)
+    public ReturnModel<CategoryResponseDto> GetById(int id)
     {
         var category = _categoryRepository.GetById(id);
         var response = _mapper.Map<CategoryResponseDto>(category);
@@ -73,6 +73,7 @@ public class CategoryService : ICategoryService
             Success = true
         };
     }
+
 
     public ReturnModel<CategoryResponseDto> Remove(int id)
     {

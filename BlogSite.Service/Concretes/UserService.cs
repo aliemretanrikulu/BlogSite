@@ -39,7 +39,7 @@ public class UserService : IUserService
         };
     }
 
-    public ReturnModel<List<UserResponseDto>> Getall()
+    public ReturnModel<List<UserResponseDto>> GetAll()
     {
         List<User> users = _userRepository.GetAll();
         List<UserResponseDto> responses = _mapper.Map<List<UserResponseDto>>(users);
