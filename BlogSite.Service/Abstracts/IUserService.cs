@@ -10,7 +10,7 @@ namespace BlogSite.Service.Abstracts;
 
 public interface IUserService
 {
-    ReturnModel<List<UserResponseDto>> Getall();
+    ReturnModel<List<UserResponseDto>> GetAll();
 
     ReturnModel<UserResponseDto> GetById(long id);
 
