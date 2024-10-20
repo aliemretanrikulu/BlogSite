@@ -112,11 +112,5 @@ public class PostService : IPostService
             Success = true
         };
 
-
-    }
-
-    ReturnModel<Post> IPostService.Add(CreatePostRequest create)
-    {
-        throw new NotImplementedException();
     }
 }

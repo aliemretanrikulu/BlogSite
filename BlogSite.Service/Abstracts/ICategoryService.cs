@@ -1,5 +1,6 @@
 ﻿
 
+using BlogSite.Models.Dtos.Categories.Requests;
 using BlogSite.Models.Dtos.Categories.Responses;
 using BlogSite.Models.Entities;
 using Core.Responses;
@@ -12,9 +13,9 @@ public interface ICategoryService
 
     ReturnModel<CategoryResponseDto> GetById(Guid id);
 
-    ReturnModel<Category> Add(CategoryResponseDto create);
+    ReturnModel<CategoryResponseDto> Add(CreateCategoryRequest create);
 
-    ReturnModel<Category> Update(CategoryResponseDto update);
+    ReturnModel<CategoryResponseDto> Update(UpdateCategoryRequest update);
 
     ReturnModel<CategoryResponseDto> Remove(Guid id);
 }

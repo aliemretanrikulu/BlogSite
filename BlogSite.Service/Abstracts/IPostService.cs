@@ -13,7 +13,7 @@ public interface IPostService
 
     ReturnModel<PostResponseDto> GetById(Guid id);
 
-    ReturnModel<Post> Add(CreatePostRequest create);
+    ReturnModel<PostResponseDto> Add(CreatePostRequest create);
 
     ReturnModel<PostResponseDto> Update(UpdatePostRequest update);
 
