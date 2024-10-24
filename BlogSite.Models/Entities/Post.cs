@@ -9,6 +9,7 @@ public sealed class Post : Entity<Guid>
 
     public string Title { get; set; }
 
+
     public string Content { get; set; }
 
     public Category Category { get; set; }

@@ -9,7 +9,7 @@ using Core.Responses;
 
 namespace BlogSite.Service.Concretes;
 
-public class PostService : IPostService
+public sealed class PostService : IPostService
 {
     private readonly IPostRepository _postRepository;
     private readonly IMapper _mapper;
@@ -52,6 +52,17 @@ public class PostService : IPostService
             Success = true
         };
 
+    }
+
+    public ReturnModel<List<PostResponseDto>> GetAllByAuthorId(long id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ReturnModel<List<PostResponseDto>> GetAllByCategoryId(int id)
+    {
+        throw new NotImplementedException();
+    
     }
 
     public ReturnModel<PostResponseDto?> GetById(Guid id)

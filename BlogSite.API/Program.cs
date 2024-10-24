@@ -1,9 +1,11 @@
 using BlogSite.DataAccess.Abstracts;
 using BlogSite.DataAccess.Concretes;
 using BlogSite.DataAccess.Contexts;
+using BlogSite.Models.Entities;
 using BlogSite.Service.Abstracts;
 using BlogSite.Service.Concretes;
 using BlogSite.Service.Profiles;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -13,11 +15,28 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<BaseDbContext>(opt=> opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddScoped<IPostRepository, EfPostRepository>();
-builder.Services.AddScoped<IPostService, PostService>();
 
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IPostRepository, EfPostRepository>();
+builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+
+builder.Services.AddIdentity<User, IdentityRole>(opt =>
+{
+    opt.User.RequireUniqueEmail = true;
+    opt.Password.RequiredUniqueChars = 1;
+    opt.Password.RequireNonAlphanumeric = true;
+}
+
+builder.Services.AddEndpointsApiExplorer());
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

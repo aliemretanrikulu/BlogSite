@@ -14,4 +14,8 @@ public class EfPostRepository : EfRepositoryBase<BaseDbContext, Post, Guid>, IPo
         
     }
 
+    public List<Post> GettAllByAuthorId(long id)
+    {
+        throw new NotImplementedException();
+    }
 }
