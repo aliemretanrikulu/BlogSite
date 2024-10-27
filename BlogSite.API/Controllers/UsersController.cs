@@ -1,7 +1,5 @@
 ﻿using BlogSite.Models.Dtos.Users.Requests;
-using BlogSite.Models.Entities;
 using BlogSite.Service.Abstracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSite.API.Controllers
@@ -20,7 +18,8 @@ namespace BlogSite.API.Controllers
 
 
         [HttpGet("email")]
-    public async Task<IActionResult> GetByEmail([FromQuery] string email)
+        public async Task<IActionResult> GetByEmail([FromQuery] string email)
+
         {
             var result = await _userService.GetByEmailAsync(email);
             return Ok(result);

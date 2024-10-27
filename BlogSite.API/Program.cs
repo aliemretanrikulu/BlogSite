@@ -33,9 +33,9 @@ builder.Services.AddIdentity<User, IdentityRole>(opt =>
     opt.User.RequireUniqueEmail = true;
     opt.Password.RequiredUniqueChars = 1;
     opt.Password.RequireNonAlphanumeric = true;
-}
+}).AddEntityFrameworkStores<BaseDbContext>();
 
-builder.Services.AddEndpointsApiExplorer());
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 

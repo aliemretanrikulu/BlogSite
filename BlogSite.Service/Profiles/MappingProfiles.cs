@@ -6,7 +6,6 @@ using BlogSite.Models.Dtos.Comments.Responses;
 using BlogSite.Models.Dtos.Posts.Requests;
 using BlogSite.Models.Dtos.Posts.Responses;
 using BlogSite.Models.Dtos.Users.Requests;
-using BlogSite.Models.Dtos.Users.Responses;
 using BlogSite.Models.Entities;
 
 namespace BlogSite.Service.Profiles;
@@ -20,7 +19,7 @@ public class MappingProfiles : Profile
         CreateMap<UpdatePostRequest, Post>();
         CreateMap<Post, PostResponseDto>()
             .ForMember(x => x.Category, opt => opt.MapFrom(x => x.Category.Name))
-            .ForMember(x => x.UserName, opt => opt.MapFrom(X => X.Author.Username));
+            .ForMember(x => x.UserName, opt => opt.MapFrom(X => X.Author.UserName));
 
 
         CreateMap<CreateCategoryRequest, Category>();
@@ -32,13 +31,8 @@ public class MappingProfiles : Profile
         CreateMap<CreateCommentRequest, Comment>();
         CreateMap<UpdateCommentRequest, Comment>();
         CreateMap<Comment, CommentResponseDto>()
-            .ForMember(x => x.UserName, opt => opt.MapFrom(x => x.User.Username));
+            .ForMember(x => x.UserName, opt => opt.MapFrom(x => x.User.UserName));
             
-
-        CreateMap<CreateUserRequest, User>();
-        CreateMap<UpdateUserRequest, User>();
-        CreateMap<User, UserResponseDto>();
-
     }
 }
 

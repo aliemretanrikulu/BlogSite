@@ -56,7 +56,16 @@ public sealed class PostService : IPostService
 
     public ReturnModel<List<PostResponseDto>> GetAllByAuthorId(long id)
     {
-        throw new NotImplementedException();
+        var posts = _postRepository.GetAll(x=> x.AuthorId==id);
+        var responses = _mapper.Map<List<PostResponseDto>>(posts);
+
+        return new ReturnModel<List<PostResponseDto>>
+        {
+            Data = responses,
+            StatusCode = 200,
+            Success = true
+        };
+
     }
 
     public ReturnModel<List<PostResponseDto>> GetAllByCategoryId(int id)

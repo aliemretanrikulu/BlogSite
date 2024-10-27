@@ -1,6 +1,4 @@
-﻿
-
-using Core.Entitites;
+﻿using Core.Entitites;
 
 namespace BlogSite.Models.Entities;
 

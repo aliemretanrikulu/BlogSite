@@ -11,7 +11,8 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
     public async Task<User> ChangePaswordAsync(ChangePasswordRequestDto requestDto, string id)
     {
         var user = await _userManager.FindByIdAsync(id);
-        if (user is null) {
+        if (user is null)
+        {
             throw new NotFoundExcepiton("Kullanıcı bulunamadı");
         }
 
