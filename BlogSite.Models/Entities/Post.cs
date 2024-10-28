@@ -15,7 +15,7 @@ public sealed class Post : Entity<Guid>
 
     public int CateogryId { get; set; }
 
-    public long AuthorId { get; set; }
+    public string AuthorId { get; set; }
 
     public User Author { get; set; }
 

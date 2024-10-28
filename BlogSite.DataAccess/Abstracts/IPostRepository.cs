@@ -7,5 +7,5 @@ namespace BlogSite.DataAccess.Abstracts;
 
 public interface IPostRepository : IRepository<Post, Guid>
 {
-    List<Post> GettAllByAuthorId(long id);
+    List<Post> GettAllByAuthorId(string id);
 }

@@ -54,7 +54,7 @@ public sealed class PostService : IPostService
 
     }
 
-    public ReturnModel<List<PostResponseDto>> GetAllByAuthorId(long id)
+    public ReturnModel<List<PostResponseDto>> GetAllByAuthorId(string id)
     {
         var posts = _postRepository.GetAll(x=> x.AuthorId==id);
         var responses = _mapper.Map<List<PostResponseDto>>(posts);

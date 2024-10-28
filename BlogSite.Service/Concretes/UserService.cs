@@ -16,7 +16,7 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
             throw new NotFoundExcepiton("Kullanıcı bulunamadı");
         }
 
-        if (requestDto.newPassword.Equals(requestDto.newPasswordAgain) is false)
+        if (requestDto.newPassword.Equals(requestDto.newPasswordAgain) is false) 
         {
             throw new BusinessExcepiton("Parolalar uyuşmuyor!");
         }
@@ -45,7 +45,6 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
 
         if (!result.Succeeded)
         {
-
             throw new BusinessExcepiton(result.Errors.ToList().First().Description);
         }
         return "Kullanıcı silindi!";
