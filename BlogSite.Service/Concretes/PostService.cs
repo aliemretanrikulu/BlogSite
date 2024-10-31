@@ -49,7 +49,7 @@ public sealed class PostService : IPostService
             Data = responses,
             Message = string.Empty,
             StatusCode = 200,
-            Success = true
+            Success = true 
         };
 
     }
@@ -64,7 +64,7 @@ public sealed class PostService : IPostService
             Data = responses,
             StatusCode = 200,
             Success = true
-        };
+        }; 
 
     }
 

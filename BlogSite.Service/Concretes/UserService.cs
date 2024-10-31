@@ -101,6 +101,9 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
             throw new(result.Errors.ToList().First().Description);
         }
 
+        var addRole = await _userManager.AddToRoleAsync(user, "User");
+        CheckIdentityResult(addRole);
+
         return user;
     }
 
@@ -119,11 +122,14 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
 
         var result = await _userManager.UpdateAsync(user);
 
+        return user;
+    }
+
+    private void CheckIdentityResult(IdentityResult result)
+    {
         if (!result.Succeeded)
         {
             throw new BusinessExcepiton(result.Errors.ToList().First().Description);
         }
-
-        return user;
     }
 }
