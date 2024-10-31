@@ -11,6 +11,6 @@ namespace BlogSite.Service.Abstratcts;
 
 public interface IJwtService
 {
-    TokenResponseDto CreateJwtTokenAsync(User user);
-    List<Claim> GetClaims(User user, List<string> audiences);
+    Task<TokenResponseDto> CreateJwtTokenAsync(User user);
+    Task<List<Claim>> GetClaims(User user, List<string> audiences);
 }

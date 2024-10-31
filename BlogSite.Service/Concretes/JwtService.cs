@@ -1,7 +1,6 @@
 ﻿using BlogSite.Models.Dtos.Tokens.Responses;
 using BlogSite.Models.Entities;
 using BlogSite.Service.Abstratcts;
-using Core.Responses;
 using Core.Tokens.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -23,7 +22,7 @@ public sealed class JwtService : IJwtService
         _userManager = userManager;
     }
 
-    public async Task<ReturnModel> TokenResponseDto CreateJwtTokenAsync(User user)
+    public  async Task<TokenResponseDto> CreateJwtTokenAsync(User user)
     {
         var accesTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration);
         var secretkey = SecurityKeyHelper.GetSecurityKey(_tokenOption.SecurityKey);
@@ -32,7 +31,7 @@ public sealed class JwtService : IJwtService
 
         JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
             issuer: _tokenOption.Issuer,
-            claims: GetClaims(user, _tokenOption.Audience),
+            claims: await GetClaims(user, _tokenOption.Audience),
             expires: accesTokenExpiration,
             signingCredentials: sc
             );
@@ -49,22 +48,22 @@ public sealed class JwtService : IJwtService
 
     public async Task<List<Claim>> GetClaims(User user, List<string> audiences)
     {
-        var claims = new List<Claim>
+            var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier,user.Id),
             new Claim("email",user.Email),
             new Claim(ClaimTypes.Name, user.UserName)
         };
 
-        var roles = await _userManager.GetRolesAsync(user);
-        
-        if(roles.Count>0)
-        {
-            claims.AddRange(roles.Select(x => new Claim(ClaimTypes.Role, x)));
-        }
+            var roles = await _userManager.GetRolesAsync(user);
 
-        claims.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+            if (roles.Count > 0)
+            {
+                claims.AddRange(roles.Select(x => new Claim(ClaimTypes.Role, x)));
+            }
 
-        return claims;
+            claims.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+
+            return claims;
     }
 }
