@@ -121,6 +121,7 @@ public sealed class UserService(UserManager<User> _userManager) : IUserService
         user.City = dto.City;
 
         var result = await _userManager.UpdateAsync(user);
+        CheckIdentityResult(result);
 
         return user;
     }

@@ -1,12 +1,18 @@
+using BlogSite.API.Middlewares;
 using BlogSite.DataAccess.Abstracts;
 using BlogSite.DataAccess.Concretes;
 using BlogSite.DataAccess.Contexts;
+using BlogSite.DataAccess.Migrations;
 using BlogSite.Models.Entities;
+using BlogSite.Service;
 using BlogSite.Service.Abstracts;
 using BlogSite.Service.Abstratcts;
 using BlogSite.Service.Concretes;
 using BlogSite.Service.Profiles;
+using BlogSite.Service.Rules;
 using Core.Tokens.Configurations;
+using Core.Tokens.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -16,21 +22,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<BaseDbContext>(opt=> opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
-builder.Services.AddAutoMapper(typeof(MappingProfiles));
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddScoped<IPostRepository, EfPostRepository>();
 
-builder.Services.AddScoped<IJwtService, JwtService>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddDataAccessDependencies(builder.Configuration);
+builder.Services.AddServiceDependencies();
+
+
+
+builder.Services.AddScoped<DecoderService, DecoderService>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.Configure<TokenOption>(builder.Configuration.GetSection("TokenOption"));
 
 builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
-builder.Services.AddScoped<IPostService, PostService>();
-builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
@@ -39,8 +47,29 @@ builder.Services.AddIdentity<User, IdentityRole>(opt =>
 {
     opt.User.RequireUniqueEmail = true;
     opt.Password.RequiredUniqueChars = 1;
-    opt.Password.RequireNonAlphanumeric = true;
+    opt.Password.RequiredLength = 8;
+
 }).AddEntityFrameworkStores<BaseDbContext>();
+
+var tokenOption = builder.Configuration.GetSection("TokenOption").Get<TokenOption>();
+
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
+{
+    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters() 
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = tokenOption.Issuer,
+        ValidAudience = tokenOption.Audience[0],
+        IssuerSigningKey = SecurityKeyHelper.GetSecurityKey(tokenOption.SecurityKey),
+    };
+});
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -55,10 +84,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler(_ => { });
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

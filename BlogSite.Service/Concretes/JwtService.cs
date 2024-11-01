@@ -33,7 +33,7 @@ public sealed class JwtService : IJwtService
             issuer: _tokenOption.Issuer,
             claims: await GetClaims(user, _tokenOption.Audience),
             expires: accesTokenExpiration,
-            signingCredentials: sc
+            signingCredentials: sc 
             );
 
         var handler = new JwtSecurityTokenHandler();
